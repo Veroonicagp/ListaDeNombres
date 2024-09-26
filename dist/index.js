@@ -13,13 +13,21 @@ window.addEventListener('DOMContentLoaded', () => {
     const bttnElement = document.getElementById('bttn');
     const outputElement = document.getElementById('nameList');
     function recogerValor() {
-        // Recoger el valor del input
-        const name = nombreIntro.value;
-        addName(name);
-        // Mostrar el valor en el elemento de salida
-        outputElement.textContent = `${name}`;
+        return new Promise((resolve, reject) => {
+            const name = nombreIntro.value;
+            console.log(`Introduciendo ${name}`);
+            setTimeout(() => {
+                if (name == "") {
+                    reject(`Ese nombre no es valido`);
+                }
+                else {
+                    addName(name);
+                    outputElement.textContent = `${name}`;
+                    resolve(`completado exitosamente`);
+                }
+            }, 2000);
+        });
     }
-    // Añadir un event listener al botón para ejecutar la función cuando el botón sea clicado
     bttnElement.addEventListener('click', recogerValor);
     function addName(name1) {
         nombres.push(name1);

@@ -8,6 +8,7 @@ function greet(name: string): void {
   
   greet("World");
 
+
 window.addEventListener('DOMContentLoaded', () => {
 
     let nombres: string[] = [];
@@ -15,12 +16,22 @@ window.addEventListener('DOMContentLoaded', () => {
     const bttnElement = document.getElementById('bttn') as HTMLIonButtonElement;
     const outputElement = document.getElementById('nameList') as HTMLIonTextElement;
   
-    function recogerValor() {
-      const name = nombreIntro.value as string;
-      addName(name)
-  
-      outputElement.textContent = `${name}`;
+    function recogerValor():Promise<string> {
+      return new Promise((resolve, reject) => {
+        const name = nombreIntro.value as string;
+        console.log(`Introduciendo ${name}`);
+        setTimeout(() => {
+          if (name == "" ) {
+            reject(`Ese nombre no es valido`);
+          } else {
+            addName(name)
+            outputElement.textContent = `${name}`;
+            resolve(`completado exitosamente`);
+          }
+        }, 2000);
+      });
     }
+
 
     bttnElement.addEventListener('click', recogerValor);
 
